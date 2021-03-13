@@ -1,0 +1,9 @@
+The problem we are dealing with is called Vehicle Scheduling Problem. It has been dealt with in connection to many applications, including railways, buses and airplanes. 
+One of the most important works in the area is the paper by Ahuja et al. \cite{ahuja_solving_2005} who suggest a mixed-integer programming (MIP) formulation of the problem of scheduling locomotives of different type and number. They then use large-scale neighborhood search techniques to come up with good-quality solution. 
+
+Basing on multicommodity flow problem, Cordeau et al. \cite{cordeau_simultaneous_2001} propose an integer programming model for the attribution of locomotives and passenger cars to passenger trips. This is done via a three stage heuristic approach. 
+\newline
+A more comprehensive overview of the literature can be found in \cite{reuther_schlechte_2018} and \cite{lobel_optimal_1997}. As a general remark - Reuther and Schlechte note in \cite{reuther_schlechte_2018} that the literature in the discussed area is “rather fragmented (in the sense that it is difficult to identify a significant common line [of research])”. They also list a number of reasons for this state of matter.
+\newline 
+In the latter parts of this document we present two approaches. The first one would be an adaptation of the multi-commodity-flow approach suggested by Ahuja et al. in \cite{ahuja_solving_2005}, whereas the second one would be the novel approach we developed. It differs from the existing approached in the solution time, as well as in a "coarser" treatment of locomotives - we consider them by type rather than by item.
+

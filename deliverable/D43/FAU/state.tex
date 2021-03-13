@@ -1,0 +1,60 @@
+Let $L = \{l_1, l_2, l_3 ... \}$ be the set of commodities ("locomotives") which need to be "pushed" through a network, represented by a directed graph $G = (V, E)$. Let us also assume that the graph contains all the information about time and space compatibility of trains. 
+Additionally let us assume that a capacity flow is binary, e.g. we either choose to push a certain commodity through a network or not.
+Further, let each arc $a \in E$ have the following properties:
+\begin{enumerate}
+    \item Unit capacity - e.g. it can host at most one commodity
+    \item Limited commodity compatibility - e.g. some arcs cannot host all commodities.
+\end{enumerate}
+The objective would be to push commodities in such a way that maximally many nodes are visited.
+Let us also define $A$ and $\Omega \in E$ as the source and sink nodes, respectively. Further, let $L^V$ denote the subset of $L$ which is compatible to all $e \in \delta^{in}(v) \cup \delta^{out}(v)$ for all $v \in V$. Also, let $V(l)$ denote the set of all vertices $v \in V$ which can "process" the commodity $l \in L$
+\subsection{Problem formulation}
+Let us introduce the following variables:
+\\
+\\
+$\lambda_v = \begin{cases}
+    1  & \quad \text{if node } v \in V \text{ is visited by a matching commodity } l \in L^v \\
+    0  & \quad \text{otherwise.}
+  \end{cases}$
+\\
+\\
+$f^{u, v}_l = \begin{cases}
+    1  & \quad \text{if nodes } (u, v) \in E \text{ are visited by a matching commodity } l \in L^v \cap L^u \text{consecutively} \\
+    0  & \quad \text{otherwise.}
+  \end{cases}$ 
+\newline
+
+The model then looks as follows:
+\newline
+\newline
+
+\begin{equation}
+	\label{eqn:old_obj}
+    \displaystyle \max   \displaystyle  \sum_{v\in V} \lambda_{v} \quad \forall \quad v \in V
+\end{equation}
+ 
+\begin{equation}
+  \label{eqn:old_c1}
+  \lambda_{v} \quad \leq \quad \displaystyle \sum_{l \in L^v} \quad \sum_{w \in \delta^{out}(v) \cap V(l)} \quad f^{v, w}_{l} \quad \forall \enspace v \in V
+\end{equation}
+
+\begin{equation}
+  \label{eqn:old_c2}
+\displaystyle \sum_{l \in L^v} \quad \sum_{u \in \delta^{in}(v) \cap V(l)} \quad f^{u, v}_{l} \quad - \quad \sum_{l \in L^v} \quad \sum_{w \in \delta^{out}(v) \cap V(l)} \quad f^{v, w}_{l} \quad = \quad 0 \quad \forall \enspace v \in V
+\end{equation}
+
+\begin{equation}
+  \label{eqn:old_c3}
+\displaystyle \sum_{u \in \delta^{in}(v) \cap V(l)} \quad f^{u, v}_{l} \quad - \quad \sum_{w \in \delta^{out}(v) \cap V(l)} \quad f^{v, w}_{l} \quad = \quad 0 \quad \forall \enspace v \in V, \quad \forall \enspace l \in L^v
+\end{equation}
+
+\begin{equation}
+  \label{eqn:old_c4}
+\displaystyle \sum_{v \in V(l)} \quad f^{A, v}_{l} \quad \leq \quad 1 \quad \forall \enspace l \in L
+\end{equation}
+
+\begin{equation}
+  \label{eqn:old_c5}
+\displaystyle \sum_{v \in V(l)} \quad f^{A, v}_{l} \quad - \quad \sum_{v \in V(l)} \quad f^{v, \Omega}_{l} \quad = \quad 0 \quad \forall \enspace l \in L
+\end{equation}
+\newpage
+Let us briefly discuss each of the elements of the model. \ref{eqn:old_obj} defines the objective function as maximization of the total number of trains running. Constraint \ref{eqn:old_c1} ensures that each auxiliary variable $\lambda_v$ enforces some incoming flow variable $f^{u, v}_l$. Inequality \ref{eqn:old_c2} is a classical flow conservation constraint - it ensures that an inflow to a node $v$ is followed by an outflow from this node. Building on this, \ref{eqn:old_c3} ensures that the same commodity both "enters" and "leaves" each node $v$. Constraint \ref{eqn:old_c4} ensures then that at most connection to the source is selected for each commodity. Finally, \ref{eqn:old_c5} ensures that each commodity that left the source will also reach the sink node. 

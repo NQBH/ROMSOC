@@ -1,0 +1,94 @@
+Let $L = \{l_1, l_2, l_3 ... \}$ be the set of commodities ("locomotives") which need to be "pushed" through a network, represented by a directed graph $G = (V, E)$ (the graph contains all the information about time and space compatibility of trains). 
+Let us assume that a capacity flow is binary, e.g. we choose to push a certain commodity through a network or not.
+Further, let each arc $a \in E$ have the following properties:
+\begin{enumerate}
+    \item Unit capacity - e.g. it can host at most one commodity
+    \item Limited commodity compatibility - e.g. some arcs cannot host all commodities.
+\end{enumerate}
+The objective would be to push commodities in such a way that maximally many nodes are visited.
+Let us also define $A$ and $\Omega \in E$ as the source and sink nodes, respectively. Further, let $L^V$ denote the subset of $L$ which is compatible to all $e \in \delta^{in}(v) \cup \delta^{out(v)}$ for all $v \in V$. Also, let $V(l)$ denote the set of all vertices $v \in V$ which can "process" the commodity $l \in L$
+\newline
+\newline
+\noindent
+We now notice that some of the commodities $l \in L$ share their node compatibility $V(l)$ with other commodities $l_1 \in L$. 
+We group these commodities into new sets, denoted with a letter $\mathscr{L}$. 
+We can now present $L$ as $L = \{\mathscr{L}_1, \mathscr{L}_2, \mathscr{L}_3, ...\}$. The definitions of $L^V$ and $V(\mathscr{L})$ are analogously modified. Let us also define a parameter $d_n = |\mathscr{L}_n| \quad \forall \enspace \mathscr{L}_n \in L$.
+This approach does not give a direct association of single commodities $l$ to nodes and arcs, but, as long as we are indifferent about items in a commodity class $\mathscr{L}$, we can afterwards use a simple algorithm to distribute the arcs and nodes assigned to a commodity class to individual commodity items.
+\subsection{Problem formulation}
+Similarly to the old formulation, we have:
+
+$\lambda_v = \begin{cases}
+    1  & \quad \text{if node } v \in V \text{ is visited by a matching commodity from the commodity class } \mathscr{L} \in L^v \\
+    0  & \quad \text{otherwise.}
+  \end{cases}$
+\\
+\\
+$f^{u, v}_\mathscr{L} = \begin{cases}
+    1  & \quad \text{if nodes } (u, v) \in E \text{ are visited by an } l \in \mathscr{L} \in L^v \cap L^u \text{ consecutively} \\
+    0  & \quad \text{otherwise.}
+  \end{cases}$ 
+\newline
+
+\newpage
+The new formulation is then as follows:
+\newline
+\newline
+\begin{equation}
+	\label{eqn:new_obj}
+    \displaystyle \max   \displaystyle  \sum_{v\in V} \lambda_{v} \quad \forall \quad v \in V
+\end{equation}
+ 
+\begin{equation}
+  \label{eqn:new_c1}
+  \lambda_{v} \quad \leq \quad \displaystyle \sum_{\mathscr{L} \in L^v} \quad \sum_{w \in \delta^{out}(v) \cap V(\mathscr{L})} \quad f^{v, w}_{\mathscr{L}} \quad \forall \enspace v \in V
+\end{equation}
+
+\begin{equation}
+	\label{eqn:new_c2}
+\displaystyle \sum_{\mathscr{L} \in L^v} \quad \sum_{u \in \delta^{in}(v) \cap V(\mathscr{L})} \quad f^{u, v}_{\mathscr{L}} \quad - \quad \sum_{\mathscr{L} \in L^v} \quad \sum_{w \in \delta^{out}(v) \cap V(\mathscr{L})} \quad f^{v, w}_{\mathscr{L}} \quad = \quad 0 \quad \forall \enspace v \in V
+\end{equation}
+
+\begin{equation}
+	\label{eqn:new_c3}
+\displaystyle \sum_{u \in \delta^{in}(v) \cap V(\mathscr{L})} \quad f^{u, v}_{\mathscr{L}} \quad - \quad \sum_{w \in \delta^{out}(v) \cap V(\mathscr{L})} \quad f^{v, w}_{\mathscr{L}} \quad = \quad 0 \quad \forall \enspace v \in V, \quad \forall \enspace \mathscr{L} \in L^v
+\end{equation}
+
+\begin{equation}
+	\label{eqn:new_c4}
+\displaystyle \sum_{v \in V(\mathscr{L}_n)} \quad f^{A, v}_{\mathscr{L}} \quad \leq \quad d_n \quad \forall \enspace \mathscr{L}_n \in L
+\end{equation}
+
+\begin{equation}
+	\label{eqn:new_c5}
+\displaystyle \sum_{v \in V(\mathscr{L}_n)} \quad f^{A, v}_{\mathscr{L}_n} \quad - \quad \sum_{v \in V(\mathscr{L}_n)} \quad f^{v, \Omega}_{\mathscr{L}_n} \quad = \quad 0 \quad \forall \enspace \mathscr{L}_n \in L
+\end{equation}
+
+Again, let us briefly discuss each of the elements of the model. \ref{eqn:new_obj} defines the objective function as maximization of the total number of trains running. Constraint \ref{eqn:new_c1} ensures that each auxiliary variable $\lambda_v$ enforces some feasible incoming flow variable $f^{u, v}_\mathscr{L}$. Inequality \ref{eqn:new_c2} is a classical flow conservation constraint - it ensures that an inflow to a node $v$ is followed by an outflow from this node. Building on this, \ref{eqn:new_c3} ensures that a commodity from the same commodity class $\mathscr{L}$ both "enters" and "leaves" each node $v$. Constraint \ref{eqn:new_c4} ensures then that for each commodity class, there are at most as many connections to the source node as the quantity of commodities belonging to that class. Finally, \ref{eqn:new_c5} ensures that each commodity that left the source will also reach the sink node. 
+
+At this stage, the optimization model only attributes locomotive classes to each individual locomotives. We now need an algorithm which would convert the solution of the new model to the solution of the locomotive scheduling. We suggest an algorithm which can do that efficiently. For its sake, let us assume that $type(l)$ denotes the locomotive type of a locomotive $l$. Should the argument be a set, let us assume that $type(c)$ denotes the type of all the locomotives included in a given set.
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+	\KwData{Solution of the new optimization model $S$, set of sets of locomotives grouped by locomotive class $C$}
+	\KwResult{Exact attribution of locomotives to trains $A$}
+	\caption{Assigning locomotives to the solution of the new model}
+	$A = \emptyset$ \;
+	$answer: l \rightarrow set$\;
+	\For{$c \in C$}{
+		$locos \longleftarrow \{l: type(l) = c\}$	\;	
+		$beginnings \longleftarrow \{v: S \ni f^{A, v}_{l} = 1 \land l = type(c) \}$	 \;
+		\For{$b \in beginnings$}{
+				$ans = \{b\}$\;
+				$prev = b$\;
+				$next = 0$\;
+				\While{$next \neq \Omega$}{
+						$next \in \{v: S \ni f^{prev, v}_{l} = 1 \land l = type(c) \}$\;
+						\If{$next \neq \Omega$}
+							{$ans = ans \cup \{v\}$\;}
+					}
+				\textbf{take } $l \in locos$\;
+				$locos = locos \setminus \{l\}$\;
+				$answer(l) = ans$\;
+			} 
+		}
+\end{algorithm}

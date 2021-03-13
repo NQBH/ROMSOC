@@ -1,0 +1,39 @@
+To test our approach, we have developed a number of test instances based on the data supplied by our industrial partner, DB Cargo Polska S.A. To solve the model, we have used a node at University of Erlangen's High Performance Computing Center with with Gurobi 9.0.2, using Intel Xeon E3-1240 v6 CPUs („Kaby Lake“, 4 cores, HT disabled, 3,7 GHz base frequency), 32 GB RAM, with a time limit of 9000 seconds (10 hours for the most difficult instance).
+
+We have developed two families of instances. \emph{Full} instances capture the whole complexity of the problem, whereas the \emph{Frequent} instances consider only trains which are planned to go at least ten times a week. Each name is accompanied by the indication of the planning horizon (e.g. 1M - one month, 1W - one week etc.).
+
+The next page presents the results of both the current state of art ("Old") and our new approach ("New") against the commonly used instances.
+\newpage
+	\begin{landscape}
+		\begin{table}[h]
+			\begin{tabular}{@{}llllllllllll@{}}
+				\toprule
+				\multirow{2}{*}{Instance}           & \multirow{2}{*}{\# of trains} & \multirow{2}{*}{\# of drivers} & \multirow{2}{*}{\# of locos} & \multicolumn{2}{l}{Before presolve} & \multicolumn{2}{l}{After presolve} & \multirow{2}{*}{Optimum} & \multirow{2}{*}{Time} \\ \cmidrule(lr){5-8}
+				&                               &                              &                                & \# rows  & \# columns  & \# rows & \# columns  &                          &                                  \\ \midrule
+				Old\_Full\_1M\_Locos    			& 2551                          & 217                          & 112+346                              & \num{255256}        & \num{5886964}                  & \num{152886}       & \num{5885811}                   & *                       &    \num{36000} s                             \\ \hline
+				Old\_Full\_1W\_Locos    			& 629                          & 217                          & 112+88                              & \num{45651}        & \num{411383}                  & \num{38447}       & \num{410954}                   & 629                       &  1682.08 s                                \\ \hline
+				Old\_Full\_3D\_Locos    			& 240                          & 217                          & 112+31                              & \num{16817}        & \num{85949}                  & \num{15022}       & \num{85486}                   & 240                     & 11.14 s                              \\ \hline
+				Old\_Full\_1D\_Locos    			& 80                          & 217                          & 112+19                             & \num{5692}        & \num{15945}                  & \num{4324}       & \num{14824}                   & 80                     & 0.92 s                             \\ \hline
+				Old\_Frequent\_1M\_Locos   & 1512                          & 217                          & 112+315                              &  \num{94905}       & \num{1519011}                  & \num{45975}       & \num{1518122}                  & 878**                       & 8192.49 s                                \\	\hline		 
+				Old\_Frequent\_1W\_Locos   & 363                          & 217                          & 112+82                              & \num{24896}        & \num{193519}                  & \num{20629}       & \num{193384}                   & 363                        & 74.24 s                         \\	\hline			
+				Old\_Frequent\_3D\_Locos   & 148                          & 217                          & 112+29                              & \num{9944}        & \num{46489}                  & \num{8791}       & \num{46267}                   & 148                        & 5.16 s                               \\	\hline			
+				Old\_Frequent\_1D\_Locos   & 56                          & 217                          & 112+16                              & \num{3544}        & \num{9219}                  & \num{2769}       & \num{8636}                   & 56                        & 0.70 s                               \\	\hline							
+				                     \\ \midrule
+				New\_Full\_1M\_Locos    			& 2551                          & 217                          & 112+346                              & \num{94377}        & \num{266659}                  & \num{14700}       & \num{265618}                   & 2529                       & 362.81 s                               \\ \hline
+				New\_Full\_1W\_Locos    			& 629                          & 217                          & 112+88                              & \num{9517}        & \num{19098}                  & \num{3480}       & \num{18811}                   & 629                       &  2.32 s                             \\ \hline
+				New\_Full\_3D\_Locos    			& 240                          & 217                          & 112+31                              & \num{2365}        & \num{4140}                  & \num{1219}       & \num{4004}                   & 240                     & 0.45 s                             \\ \hline
+				New\_Full\_1D\_Locos    			& 80                          & 217                          & 112+19                             & \num{606}        & \num{784}                  & \num{336}       & \num{680}                   & 80                     & 0.19 s                              \\ \hline
+				New\_Frequent\_1M\_Locos   & 1512                          & 217                          & 112+315                              &  \num{47620}       & \num{135250}                  & \num{8455}       & \num{134323}                  & 1512                       & 77.46 s                            \\	\hline		 
+				New\_Frequent\_1W\_Locos   & 363                          & 217                          & 112+82                              & \num{4892}        & \num{9163}                  & \num{1860}       & \num{8916}                   & 363                        & 0.80 s                                \\	\hline			
+				New\_Frequent\_3D\_Locos   & 148                          & 217                          & 112+29                              & \num{1349}        & \num{2272}                  & \num{724}       & \num{2181}                   & 148                        & 0.29 s                            \\	\hline			
+				New\_Frequent\_1D\_Locos   & 56                          & 217                          & 112+16                              & \num{405}        & \num{498}                  & \num{193}       & \num{371}                   & 56                        & 0.38 s                           \\	\hline							
+				
+			\end{tabular}
+		\end{table}
+	\end{landscape}
+
+The results table presents the approach used, then the name of the instance, then the numbers of trains, locomotives and drivers which were supplied to the model. Then, it presents the number of rows and columns, both before and after Gurobi's pre-processing routine. Finally, we can see the number of trains performed in the optimum solution.
+
+The current approach can efficiently deal with instances of up to one week, for both \emph{Frequent} and \emph{Full} cases. \emph{Frequent} instances of up to one week optimize in less than two minutes, and so do the three-day and one-day \emph{Full} instances. In the current approach, monthly \emph{Full} instance does not get beyond root node relaxation in 10 hours. Similarly, in its alloted time, monthly \emph{Frequent} instance only solves to 58\% of all the trains.
+
+The new approach outperforms the existing one in all areas. Due to its different design, much fewer rows and columns are generated. For all instances, the solution times are significantly smaller. The decrease is particularly visible for the larger instances - monthly \emph{Frequent} instance now solves in less than 1\% of the time required in the existing approaches. Even the biggest of instances, monthly \emph{Full}, solves to optimality in slightly more than five minutes. 

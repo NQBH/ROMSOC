@@ -1,0 +1,263 @@
+\documentclass{ROMSOC}
+% Select what to do with acronyms (for options see acronyms.tex)
+\usepackage[printonlyused,nohyperlinks]{acronym}
+% Select what to do with todonotes: 
+%\usepackage[disable]{todonotes} % notes not showed
+\usepackage[draft,textwidth=1.7cm, textsize=footnotesize,color=ROMSOCblue!30,colorinlistoftodos]{todonotes}   % notes showed
+\setlength{\marginparwidth}{1.7cm}
+\setlength{\footheight}{57.24883pt}
+
+\input{packages}
+
+\RedeclareSectionCommands[
+  beforeskip=-.5\baselineskip,
+  afterskip=.25\baselineskip
+]{section,subsection,subsubsection}
+\RedeclareSectionCommands[
+  beforeskip=.5\baselineskip,
+  afterskip=-1em]{paragraph,subparagraph}
+
+\input{macros}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+\graphicspath{{../images/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Change Title, Number and Version of Deliverable here!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\DelTitle}{Reports and software for new optimization methods in different industrial applications}
+\newcommand{\DelNumber}{D4.3}
+\newcommand{\DelVersion}{1.0}
+\newcommand{\footertext}{\raisebox{3mm}{Deliverable \DelNumber}}
+\setlength{\footheight}{40pt}
+\newcommand{\footerlogo}{\raisebox{3mm}{\leavevmode\includegraphics[width=1.5cm]{ROMSOC_Logo_bw.png}}}
+\clearscrheadfoot
+\pagestyle{empty}
+
+\definecolor{ROMSOCred}{RGB}{255,0,137}
+\definecolor{ROMSOCblue}{RGB}{63,162,255}
+\definecolor{ROMSOCviolett}{RGB}{89,0,159}
+
+\newcolumntype{C}{ >{\centering\arraybackslash} m{4cm} }
+
+\begin{center}
+Horizon 2020
+\vspace{2cm}
+
+  \begin{center}
+  \includegraphics[width=0.2\textwidth]{../images/ROMSOC_Logo.png}
+  \vspace{2mm}
+  \end{center}
+  \vspace{1cm}
+  {\Large Reduced Order Modelling, Simulation and Optimization of Coupled systems}
+  \vspace{2cm}
+
+  \begin{spacing}{2.5}
+    \textbf{\Huge \DelTitle}\\\vspace{10mm}
+    \textbf{\Large Deliverable number: \DelNumber} \\\vspace{10mm} 
+    {\large Version \DelVersion}
+  \end{spacing}
+  
+  \vspace*{\fill}
+
+  \begin{tabular}{C@{\hspace*{0cm}}l}
+    \includegraphics[scale=0.2]{../images/logos/EU_Flag_320_213.png} &
+    \begin{tabular}{p{12cm}}
+    {Funded by the European Union’s Horizon 2020 research and innovation programme
+    under the Marie Sk\l odowska-Curie Grant Agreement No. 765374}
+    \end{tabular}
+  \end{tabular}
+\end{center}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Second Page 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\headheight}{1cm}
+\setlength{\footskip}{18mm}
+\addtolength{\textheight}{-\footskip}
+\pagestyle{empty}
+
+\begin{flushleft}
+  \begin{tabular}{ll}
+    \textbf{Project Acronym:}       &  ROMSOC \\
+    \textbf{Project Full Title:}    &  Reduced Order Modelling, Simulation and Optimization of Coupled systems  \\
+    \textbf{Call:}                  &  H2020-MSCA-ITN-2017 \\ 
+    \textbf{Topic:}                 &  Innovative Training Network \\
+    \textbf{Type of Action:}        &  European Industrial Doctorates \\
+    \textbf{Grant Number:}          &   765374 \\
+    \textbf{Project website:}       &  \url{http://www.romsoc.eu} 
+  \end{tabular}
+
+
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+
+\vspace{0.5cm}
+   \begin{tabular}{|l|p{119mm}|}\hline
+     \Tstrut\Bstrut Editor:& Andreas Bärmann, FAU\\\hline
+     \Tstrut\Bstrut Deliverable nature:& Report (R) \\\hline
+%Options for Deliverable nature (see Annex 1, GA):
+%	R      - Document, Report
+%	DEM    - Demonstrator, pilot, prototype
+%	DEC    - Websites, patent fillings, videos, etc.
+%	OTHER
+%	ETHICS - Ethics requirements
+%	ORDP   - Open Research Data Pilot
+     \Tstrut\Bstrut Dissemination level:& Public (PU)\\\hline
+%Options for Dissimination level:
+%	PU  - Public
+%	CO  - Confidential, only for members of the consortium (including the Commission Services)
+     \Tstrut\Bstrut Contractual Delivery Date:& 30/10/2020\\\hline
+     \Tstrut\Bstrut Actual Delivery Date& 30/10/2020\\\hline
+     \Tstrut\Bstrut Number of pages:&\pageref{finalpg}\\\hline
+     \Tstrut\Bstrut Keywords:& Optimization, Software, Industrial Applications\\\hline
+     \Tstrut Authors:&
+     \begin{tabular}[t]{l}
+       Andreas Bärmann, FAU \\
+       Alexander Martin, FAU \\
+       Jonasz Staszek, FAU \\
+       Jean-David Benamou, INRIA \\
+       Giorgi Rukhaia, INRIA \\
+       Ronny Ramlau, JKU \\
+       Bernadett Stadler, JKU \\
+       Wilbert Ijzerman, Signify \\
+       Sören Dittmer, U-HB \\
+       %José Carlos Gutiérrez Pérez, U-HB \\       
+       %Tobias Kluth, U-HB \\
+       %Peter Maaß, U-HB \\
+       %Daniel Otero Baguer, U-HB \\
+       Michael Hintermüller, WIAS \\
+       Axel Kröner, WIAS \\
+       %XXX - YYY, Institution \\
+       %XXX - YYY, Institution \Bstrut \\
+     \end{tabular}\\\hline
+     %\Tstrut\Bstrut Peer review: &
+     %\begin{tabular}[t]{l}
+ 		%ZZZ - Institution\\
+ 	%\end{tabular}\\\hline
+   \end{tabular}
+\end{flushleft}
+
+\section*{Abstract}
+\input{content-abstract}
+
+
+\vfill
+
+{\small
+\textbf{Disclaimer \& acknowledgment}\\
+This project has received funding from the European Union’s Horizon 2020 research and innovation programme under the Marie Sk\l odowska-Curie Grant Agreement No.~765374. 
+
+This document reflects the views of the author(s) and does not necessarily reflect the views or policy of the European Commission. The REA cannot be held responsible for any use that may be made of the information this document contains.
+
+Reproduction and translation for non-commercial purposes are authorized, provided the source is acknowledged and the publisher is given prior notice and sent a copy. 
+%Copyright information: The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creators as the source of the language used, but using any of their plan's text does not imply that the
+%creator(s) endorse, or have any relationship to, your project or proposal.
+}
+\clearpage
+
+\setcounter{tocdepth}{1}
+
+%\begin{center}
+%{\Large \textbf{History of Changes}}
+%\end{center}
+%\begin{flushleft}
+%\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+%\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+%  \begin{tabular}{|c|l|p{66mm}|p{48mm}|}\hline
+%  \Tstrut\Bstrut \textbf{Version} & \textbf{Date} & \textbf{Comments, Change} & \textbf{Authors, Contributors}\\\hline
+%  \Tstrut\Bstrut x.x & 31/12/2019  & First submission  &  \\\hline
+%  \Tstrut\Bstrut x.x & DD/MM/YYYY  &   &  \\\hline
+%  \end{tabular}
+%\end{flushleft}
+\vfill
+
+\tableofcontents
+\vfill
+%\listoffigures
+%\begingroup
+%\let\clearpage\relax
+%\listoftables
+%\endgroup
+
+\newpage
+% This should be included if the deliverable becomes large
+%\input{executivesummary}
+%\input{acronyms} % optional
+\input{list} %optional
+
+\lofoot[\footerlogo \hspace{10pt} \footertext]{\footerlogo \hspace{10pt} \footertext}
+\lefoot[\footerlogo \hspace{10pt} \footertext]{\footerlogo \hspace{10pt} \footertext}
+
+\refoot[\pagemark]{\pagemark}
+\rofoot[\pagemark]{\pagemark}
+
+\rohead{\rightmark}
+\rehead{\rightmark}
+
+\newpage
+\setcounter{page}{1}
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+
+% the following is optional and depend on the deliverable
+%\hypersetup{pageanchor=true}
+\part{Introduction}
+\input{content-introduction}
+
+\newpage
+\part[Optimization methods for locomotive scheduling in railway transport~\newline(Andreas Bärmann, Alexander Martin and Jonasz Staszek -- FAU)]{Optimization methods for locomotive scheduling in railway transport\\[0.25\baselineskip]\normalsize Andreas Bärmann, Alexander Martin and Jonasz Staszek -- FAU}
+\input{content-FAU}
+
+\newpage
+\part[~(Jean-David Benamou and Giorgi Rukhaia -- INRIA, Wilbert Ijzerman -- Signify)]{\normalsize Jean-David Benamou and Giorgi Rukhaia -- INRIA, Wilbert Ijzerman, Signify}
+\input{content-INRIA}
+
+\clearpage
+\part[~(Ronny Ramlau and Bernadett Stadler -- JKU)]{\normalsize Ronny Ramlau and Bernadett Stadler -- JKU}
+\input{content-JKU}
+
+%\newpage
+%\part[~\\(Sören Dittmer, José Carlos Gutiérrez Pérez, Tobias Kluth, Peter Maaß and Daniel Otero Bagier -- U-HB)]{\normalsize Sören Dittmer, José Carlos Gutiérrez Pérez, Tobias Kluth, Peter Maaß and Daniel Otero Bagier -- U-HB}
+%\input{content-U-HB}
+%
+\newpage
+\part[~(Michael Hintermüller and Axel Kröner -- WIAS)]{\normalsize Michael Hintermüller and Axel Kröner -- WIAS}
+\input{content-WIAS}
+
+%\bibliographystyle{apalike}
+\bibliography{./bib/references-FAU,./bib/references-U-HB,./bib/references-JKU,./bib/references-WIAS,./bib/references-INRIA}
+%\newpage
+%\appendix
+%\input{appendix.tex}
+
+
+\label{finalpg}
+\clearpage
+
+\thispagestyle{empty}
+\begin{center}
+\vfill
+\begin{figure}
+\centering
+\vspace{7cm}
+  \includegraphics[width=3cm]{../images/ROMSOC_Logo_bw.png}
+\end{figure}
+\vfill
+{\large The ROMSOC project\\[0.5cm] }
+{\large \today \\[0.5cm] }
+{\large ROMSOC-\DelNumber-\DelVersion\\[0.5cm] }
+\vfill
+
+Horizon 2020
+
+\end{center}
+\end{document}

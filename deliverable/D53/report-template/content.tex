@@ -1,0 +1,112 @@
+%content.tex (optional)
+
+\section{Introduction}
+The work package WP5 of the \acs{ROMSOC} project is entitled 
+``Benchmarks for Model Hierarchies''. 
+Its duration goes from month 7 to month 60. 
+The tasks involved in WP5 will be coordinated and headed by \ac{ITMATI}. The description of the tasks of this work package are:
+\begin{itemize}
+\item[] 5.1: Selection of appropriate benchmark models from industrial partners where concrete data can be made publically available. 
+\item[] 5.2: Implementation of the model hierarchy as open access models based on several of the industrial applications. 
+\item[] 5.3: Preparation of documents for dissemination that will be equipped with available data to be used for training in modelling, model testing, reduced order modelling, estimation errors, optimization efficiency in algorithmic approaches, and testing of generated MSO / MOR software.
+\item[] 5.4: Preparation and testing of benchmarks as teaching material for training courses offered at the participating academic and industrial partners.
+\item[] 5.5: Preparation of web-based versions of benchmarks for public use. 
+\end{itemize}
+All the \ac{ESR}s must be involved in this work package WP5 and they will participate in the following four deliverables:
+\begin{itemize}
+\item[] D5.1: Reports about 8 selected benchmark cases of model hierarchies (scheduled at month M12) 
+\item[] D5.2: Software-based representation of selected benchmark hierarchies equipped with publically available data (scheduled at month M24). 
+\item[] D5.3: Benchmark cases (scheduled at month M46) 
+\item[] D5.4: Reports, data and web presentation of model hierarchies for 
+the use in training courses (scheduled at month M54)
+\end{itemize}
+This document contains the guidelines for writing the report of each benchmark case. 
+
+\section{Report goals}
+The description of the selected benchmark cases (which have been introduced in the previous \href{http://doi.org/10.5281/zenodo.3888124}{D5.1 benchmark report} and its software representations in \href{http://doi.org/10.5281/zenodo.3888124}{D5.2 report}) provide two main elements:
+\begin{itemize}
+\item[(1)] A document with a short step-by-step description of the selected benchmark cases to ease the verification, validation and reproduction of its input/output data.
+\item[(2)] A GitHub repository associated with the selected benchmark cases.
+\end{itemize}
+Both elements, which include datasets, sources files, implementation requirements and any other supplementary software information, should guarantee that a potential practitioner can run easily and reproduce accurately the provided numerical test cases in relevant real-life engineering and applied science scenarios. These selected benchmarks play an essential role in the development and validation of novel numerical methodologies analysed among the \acs{ROMSOC} partners, since they ensure the numerical reproducibility of the reported numerical methods and guarantee the sustainability of its computer implementation much beyond the span and the lifetime of the consortium. 
+
+Due to the multitude of industrial applications involved in the \acs{ROMSOC} project,  the benchmark cases are not uniform and hence they use a variety of computer platforms, numerical libraries, and software packages, which are diverse and different among all the projects, which will be publically available using the ROMSOC Github \url{https://github.com/ROMSOC/} repository and the \href{https://zenodo.org/communities/romsoc}{ROMSOC community in Zenodo}. Notice also that all the benchmark cases will be selected to form a basis for the interdisciplinary research, and for the training programme. In addition, the acquired knowledge and the constructed
+benchmarks will be made available via the ROMSOC website. These software-based representation suite will be equipped with publically available data and will be used for: 
+\begin{itemize}
+\item training in modelling, 
+\item model testing, 
+\item reduced order modelling, 
+\item error estimation, 
+\item efficiency optimization in algorithmic approaches, and 
+\item testing of the generated MSO/MOR software
+\end{itemize}
+In addition, it should be remarked that the benchmark cases will be used for research, education, and dissemination within the \acs{ROMSOC} project activities.
+
+Every industry partner should provide concrete data that can be made
+public available. All \ac{ESR}s should be involved in the creation of the benchmark cases. In fact, it is encouraged that every \ac{ESR} could propose a variety of benchmark cases, which should be characteristic for each ESR project. Those ESRs, which are strongly involved in the research topics 
+included in the work packages WP2 and WP4, should pay special attention on the requirements on the benchmark cases used throughout the numerical methodologies.
+
+\section{Contribution structure}
+Due to the wide variety of topics covered in the \acs{ROMSOC} project, deviations from a rigid structure of sections are expected. However, this deliverable D5.3 should contain two main elements: (1) a document with the step-by-step description of the selected benchmark cases and (2) a public repository of data and software associated with the benchmark cases. Notice that each ESR could select a variety of benchmark cases related with her/his PhD project.
+
+In the first element, the document with the description of the benchmark case should contain the following information:
+\begin{itemize}
+\item \textbf{Introduction}: Brief description of mathematical problem, the numerical methodology and the purpose of the selected benchmark cases
+\item \textbf{Description of input data}: All the input data should be described in detail, not only the those quantities related to the physical (model) setting but also the algorithmic settings and the numerical parameters used in the numerical methods.
+\item \textbf{Step-by-step procedure}: A detailed description of the required steps to pre-process the input data, install, run the implemented software, and finally post-process the computed numerical results.
+\item \textbf{Description of output data}: All the output data should be described in detail to emphasize their accuracy, and guarantee the verification and reproducibility of those numerical results. 
+\end{itemize}
+A typical length for each benchmark case report should be between 4 and 10 pages (including tables and figures).
+
+The second main element is the ROMSOC GitHub repository \url{https://github.com/ROMSOC/} associated with each benchmark case. The topmost folder is named as the software package (or its acronym) indicating the current version (x.x. denotes the version number, e.g., 1.0). The folders \texttt{documentation} and \texttt{source} contain the files for documentation and the source files of the code itself. The additional included files (in plain text (\texttt{.txt}) or Markdown format (\texttt{.md}))
+should contain the following information:
+\begin{itemize}
+\item \texttt{CHANGELOG}: a file which contains a curated, chronologically ordered list of notable changes for each
+version of the code (including new features, changes, bug fixes, etc.);
+\item \texttt{CITATION}: a file which explains how to cite the software including the DOI of the current version and
+a BibTeX entry of the form
+\begin{verbatim}
+@MISC{nameofcode-x.x,
+key = {NAMEOFCODE},
+author = {Author1, A. and Author2, B.},
+title = {{NAMEOFCODE} -- {Full name of the code} (Version x.x)},
+month = mon,
+year = YYYY,
+doi = {10.xxxx/zenodo.xxxxxxx},
+note = {see also: \url{placeurlhere}}
+}
+\end{verbatim}
+\item  \texttt{CONTRIBUTORS}: a file which contains information on the main authors and additional contributors (if
+any);
+\item \texttt{COPYING}: a file which contains the rules for copying and using/reusing the software including an appropriate open source software license and a disclaimer (cf. Section 6);
+Deliverable D9.1
+43. FAIR data
+\item \texttt{README}: a file which contains all general information on the code (how to use the software, standard
+setting with example, getting started, dependencies, installation, etc.), including information on authors,
+licenses, contact, citation (linking to the files listed above) and disclaimer details.
+\item \textbf{Source files}: All the required source files used in the software implementation of the benchmark (already described in Deliverable D5.2)
+\item \textbf{Benchmark input/output data}: All the input and output data should be described in detail to emphasize the accuracy of the benchmark data, and guarantee its verification and reproducibility. 
+\item \textbf{Documentation files}: All the documentation files related with the benchmark case. It is strongly suggested to include here the latex files with the sstep-by-step description of the benchmark case.
+\end{itemize}
+A example repository (\url{https://github.com/ROMSOC/example-repo}) has been uploaded to have a more detailed reference about the structure of these benchmark repositories.
+
+\section{Data management and open access}
+Since the benchmark cases will be public available on the ROMSOC GitHub repositories \url{https://github.com/ROMSOC/}, make sure that
+open access can be granted (e.g. by anonymizing the data) for the academic and the industrial partners involved in each ESR project following the recommendations of the \href{http://doi.org/10.5281/zenodo.3459510}{ROMSOC data management plan}. Notice that each benchmark repository will be uploaded to the \href{https://zenodo.org/communities/romsoc}{ROMSOC community in Zenodo} to assign it a digital object identifier. The computing language and data format should
+be open (e.g. \textsc{Fortran}, \textsc{Octave}, \textsc{Python}, open-source spreadsheets applications,... depending on the application area). In addition, they should come with a detailed description of the data provided.
+
+During the 2nd Workshop on Ethics in ROMSOC (29th July 2019 in Erlangen) it was agreed upon that the following disclaimer will be added to every software package that is developed within the ROMSOC project (see the \href{http://doi.org/10.5281/zenodo.3459510}{ROMSOC data management plan}). Consequently, the \texttt{README} file should include the following disclaimer text:
+
+\begin{center}
+\textbf{DISCLAIMER}\\
+\end{center}
+\textit{In downloading this SOFTWARE you are deemed to have read and agreed to the following terms:
+This SOFTWARE has been designed with an exclusive focus on civil applications. It is not to be used
+for any illegal, deceptive, misleading or unethical purpose or in any military applications. This includes ANY APPLICATION WHERE THE USE OF THE SOFTWARE MAY RESULT IN DEATH,
+PERSONAL INJURY OR SEVERE PHYSICAL OR ENVIRONMENTAL DAMAGE. Any redistribution of the software must retain this disclaimer. BY INSTALLING, COPYING, OR OTHERWISE
+USING THE SOFTWARE, YOU AGREE TO THE TERMS ABOVE. IF YOU DO NOT AGREE TO
+THESE TERMS, DO NOT INSTALL OR USE THE SOFTWARE}
+  
+\section{Deadline and submission}
+Each benchmark case report should be writing using this \LaTeX ~template. Notice that the \href{https://ctan.org/pkg/koma-script?lang=en}{KOMA-Script bundle} (version 3.15 or higher) is required to compile this {\LaTeX}~document successfully. All benchmark cases should be send by e-mail with the subject ``[ROMSOC] Benchmark cases'' to
+\href{mailto:andres.prieto@udc.es?subject=[ROMSOC] Software-based representations}{andres.prieto@udc.es} before 30th June 2021.
